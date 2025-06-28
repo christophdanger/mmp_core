@@ -1,6 +1,6 @@
 ### MMP Core
 
-Core module for the open source Manufacturing Management Platfrom (MMP) using Frappe/ERPNext, ThingsBoard, and Grafana. 
+Core module for the open source Manufacturing Management Platfrom (MMP) using Frappe/ERPNext, ThingsBoard, and Grafana. Built with Frappe Version 15.
 
 ### Installation
 
