@@ -79,6 +79,11 @@ app_license = "mit"
 # 	"filters": "mmp_core.utils.jinja_filters"
 # }
 
+# Fixtures
+# --------
+fixtures = ["Custom Field"]
+
+
 # Installation
 # ------------
 
