@@ -5,18 +5,45 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_u36q"
+  "workstation",
+  "status",
+  "start_time",
+  "end_time",
+  "duration_in_seconds"
  ],
  "fields": [
   {
-   "fieldname": "section_break_u36q",
-   "fieldtype": "Section Break"
+   "fieldname": "workstation",
+   "fieldtype": "Link",
+   "label": "Workstation",
+   "options": "Workstation"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status",
+   "options": "Producing\nDown\nOff\n"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "duration_in_seconds",
+   "fieldtype": "Float",
+   "label": "Duration In Seconds"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-29 00:37:40.220480",
+ "modified": "2025-06-29 15:24:43.242144",
  "modified_by": "Administrator",
  "module": "MMP Core",
  "name": "Machine Activity Log",
