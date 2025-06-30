@@ -1,7 +1,14 @@
 import frappe
 from frappe.utils import now_datetime, time_diff_in_seconds
 
-@frappe.whitelist(methods=["POST"])
+@frappe.whitelist(allow_guest=True, methods=["GET"])
+def ping():
+    """
+    Simple endpoint to check if the server is running.
+    """
+    return {"status": "ok", "message": "Server is running"}
+
+@frappe.whitelist(allow_guest=True, methods=["POST"])
 def log_and_set_workstation_status(**kwargs):
     """
     Hybrid Approach:
@@ -18,14 +25,14 @@ def log_and_set_workstation_status(**kwargs):
     
     # Find the ERPNext Workstation linked to the ThingsBoard device
     workstation_name = frappe.db.get_value("Workstation", 
-        {"thingsboard_device_id": device_id}, "name")
+        {"custom_thingsboard_device_id": device_id}, "name")
     
     if not workstation_name:
         frappe.log_error(f"No workstation found for device ID: {device_id}", "Machine Activity Log Error")
         return {"status": "error", "message": "Workstation not found"}
     
     workstation_doc = frappe.get_doc("Workstation", workstation_name)
-    current_status_on_workstation = workstation_doc.workstation_status
+    current_status_on_workstation = workstation_doc.status
 
     if new_status == current_status_on_workstation:
         return {"status": "ignored", "message": "Status unchanged"}
@@ -54,7 +61,7 @@ def log_and_set_workstation_status(**kwargs):
         new_log.insert(ignore_permissions=True)
 
         # Step 3: Update the workstation's current status field
-        workstation_doc.workstation_status = new_status
+        workstation_doc.status = new_status
         workstation_doc.save(ignore_permissions=True)
 
         frappe.db.commit() # Commit all changes to the database
