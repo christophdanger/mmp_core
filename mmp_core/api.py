@@ -1,5 +1,5 @@
 import frappe
-from frappe.utils import now_datetime, time_diff_in_seconds
+from frappe.utils import now_datetime, time_diff_in_seconds, datetime
 
 @frappe.whitelist(allow_guest=True, methods=["GET"])
 def ping():
@@ -37,7 +37,7 @@ def log_and_set_workstation_status(**kwargs):
     if new_status == current_status_on_workstation:
         return {"status": "ignored", "message": "Status unchanged"}
     else:
-        now = now_datetime()
+        now = datetime.datetime.utcnow()
 
         # Step 1: Find the most recent log entry and "close it out"
         last_log = frappe.get_all(
